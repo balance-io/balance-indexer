@@ -2,6 +2,7 @@ import aioredis
 import asyncio
 
 ASSET_PREFIX='asset'
+PAIR_PREFIX='pair'
 
 async def initialize_keystore(loop, local=False):
   if local:
@@ -29,5 +30,25 @@ async def add_currency_details(redis_conn, all_currencies):
   print('added currency details')
 
 
+async def add_pair_market_info(redis_conn, all_pairs):
+  futures = [redis_conn.hmset_dict(pair_key(*deposit_withdrawal_pair), fields) for deposit_withdrawal_pair, fields in all_pairs.items()]
+  await asyncio.gather(*futures)
+  print('added market info')
+
+
+async def add_erc20_tokens(redis_conn, tokens):
+  await redis_conn.sadd('coinwoke:tokens', *tokens)
+  print('added erc20 tokens')
+
+
+async def get_erc20_tokens(redis_conn):
+  tokens = await redis_conn.smembers('coinwoke:tokens')
+  return tokens
+
+
 def asset_key(symbol):
   return '{}:{}'.format(ASSET_PREFIX, symbol)
+
+
+def pair_key(deposit, withdrawal):
+  return 'pair:withdrawal:{}:deposit:{}'.format(withdrawal, deposit)
