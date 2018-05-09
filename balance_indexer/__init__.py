@@ -7,7 +7,6 @@ import signal
 
 from balance_indexer.sources import shapeshift
 from balance_indexer.sources import coinwoke
-from balance_indexer.sources.shapeshift import ShapeshiftApiDetails
 from balance_indexer import keystore
 
 ONE_MINUTE=60
@@ -27,9 +26,9 @@ async def initialize_redis(loop, local=False):
   return await keystore.initialize_keystore(loop, local=local)
 
 
-def shapeshift_market_info_scheduler(period, loop, session, redis_conn, api_details):
-  asyncio.ensure_future(shapeshift.index_market_info(session, redis_conn, api_details))
-  loop.call_later(period, partial(shapeshift_market_info_scheduler, period, loop, session, redis_conn, api_details))
+def shapeshift_market_info_scheduler(period, loop, session, redis_conn):
+  asyncio.ensure_future(shapeshift.index_market_info(session, redis_conn))
+  loop.call_later(period, partial(shapeshift_market_info_scheduler, period, loop, session, redis_conn))
 
 
 def coinwoke_erc20_scheduler(period, loop, session, redis_conn):
