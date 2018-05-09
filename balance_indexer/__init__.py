@@ -5,7 +5,7 @@ import uvloop
 from aiohttp import ClientSession
 import signal
 
-from  balance_indexer.sources import shapeshift
+from balance_indexer.sources import shapeshift
 from balance_indexer.sources import coinwoke
 from balance_indexer.sources.shapeshift import ShapeshiftApiDetails
 from balance_indexer import keystore
@@ -37,19 +37,16 @@ def coinwoke_erc20_scheduler(period, loop, session, redis_conn):
   loop.call_later(period, partial(coinwoke_erc20_scheduler, period, loop, session, redis_conn))
 
 
-def shapeshift_currency_scheduler(period, loop, session, redis_conn, api_details):
-  asyncio.ensure_future(shapeshift.index_currencies(session, redis_conn, api_details))
-  loop.call_later(period, partial(shapeshift_currency_scheduler, period, loop, session, redis_conn, api_details))
+def shapeshift_currency_scheduler(period, loop, session, redis_conn):
+  asyncio.ensure_future(shapeshift.index_currencies(session, redis_conn))
+  loop.call_later(period, partial(shapeshift_currency_scheduler, period, loop, session, redis_conn))
 
 
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument('--redis-local', action='store_true')
-  parser.add_argument('--shapeshift', type=str, default=None, help='API key to use Shapeshift API')
+  parser.add_argument('--etherscan', type=str, default=None, help='API key to use Etherscan API')
   args = parser.parse_args()
-
-  # Get API details
-  shapeshift_details = ShapeshiftApiDetails(args.shapeshift)
 
   loop = asyncio.get_event_loop()
 
@@ -63,8 +60,8 @@ def main():
 
   # Schedule Shapeshift and Changelly indexers
   coinwoke_erc20_scheduler(FIVE_MINUTES, loop, session, redis_conn)
-  shapeshift_currency_scheduler(FIVE_MINUTES, loop, session, redis_conn, shapeshift_details)
-  shapeshift_market_info_scheduler(ONE_MINUTE, loop, session, redis_conn, shapeshift_details)
+  shapeshift_currency_scheduler(FIVE_MINUTES, loop, session, redis_conn)
+  shapeshift_market_info_scheduler(ONE_MINUTE, loop, session, redis_conn)
 
   try:
     loop.run_forever()

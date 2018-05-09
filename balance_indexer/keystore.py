@@ -46,6 +46,10 @@ async def get_erc20_tokens(redis_conn):
   return tokens
 
 
+def token_key(token_address):
+  return 'token:addr:{}'.format(token_address)
+
+
 def asset_key(symbol):
   return '{}:{}'.format(ASSET_PREFIX, symbol)
 
