@@ -2,20 +2,23 @@ import aiohttp
 import json
 
 from balance_indexer.errors import SourceError
-from balance_indexer import kms, keystore
+from balance_indexer import keystore
 from balance_indexer.sources import coinwoke
 
 BASE_URL='https://shapeshift.io'
+
 
 async def index_currencies(session, redis_conn):
   get_coins_url = '{}/getcoins'.format(BASE_URL)
   resp = await session.get(get_coins_url)
   if resp.status != 200:
-    raise SourceError('Shapeshift index currencies error')
+    raise SourceError('Shapeshift index currency symbols error')
   json_body = await resp.json()
-  currencies = { k: {'symbol': k, 'name': v['name'], 'img': v['image'], 'img_small': v['imageSmall'], 'shapeshift': v['status']} for k, v in json_body.items() }
+  print(json_body.items())
+  currencies = [ k for k, v in json_body.items() if v['status'] == 'available']
+  print(currencies)
   erc20_only = await coinwoke.filter_erc20(redis_conn, currencies)
-  await keystore.add_currency_details(redis_conn, erc20_only)
+  await keystore.add_shapeshift_tokens(redis_conn, erc20_only)
 
 
 async def index_market_info(session, redis_conn):

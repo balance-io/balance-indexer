@@ -1,0 +1,128 @@
+{
+  "1ST": {
+    "symbol": "1ST",
+    "name": "FirstBlood",
+    "decimals": 18,
+    "address": "0xAf30D2a7E90d7DC361c8C4585e9BB7D2F6f15bc7"
+  },
+  "ANT": {
+    "symbol": "ANT",
+    "name": "Aragon",
+    "decimals": 18,
+    "address": "0x960b236A07cf122663c4303350609A66A7B288C0"
+  },
+  "BNT": {
+    "symbol": "BNT",
+    "name": "Bancor",
+    "decimals": 18,
+    "address": "0x1F573D6Fb3F13d689FF844B4cE37794d79a7FF1C"
+  },
+  "CVC": {
+    "symbol": "CVC",
+    "name": "Civic",
+    "decimals": 8,
+    "address": "0x41e5560054824eA6B0732E656E3Ad64E20e94E45"
+  },
+  "DNT": {
+    "symbol": "DNT",
+    "name": "district0x",
+    "decimals": 18,
+    "address": "0x0AbdAce70D3790235af448C88547603b945604ea"
+  },
+  "ETH": {
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "decimals": 18,
+    "address": null
+  },
+  "GNO": {
+    "symbol": "GNO",
+    "name": "Gnosis",
+    "decimals": 18,
+    "address": "0x6810e776880C02933D47DB1b9fc05908e5386b96"
+  },
+  "GNT": {
+    "symbol": "GNT",
+    "name": "Golem",
+    "decimals": 18,
+    "address": "0xa74476443119A942dE498590Fe1f2454d7D4aC0d"
+  },
+  "GUP": {
+    "symbol": "GUP",
+    "name": "Matchpool",
+    "decimals": 3,
+    "address": "0xf7B098298f7C69Fc14610bf71d5e02c60792894C"
+  },
+  "NMR": {
+    "symbol": "NMR",
+    "name": "Numeraire",
+    "decimals": 18,
+    "address": "0x1776e1f26f98b1a5df9cd347953a26dd3cb46671"
+  },
+  "OMG": {
+    "symbol": "OMG",
+    "name": "OmiseGo",
+    "decimals": 18,
+    "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07"
+  },
+  "RCN": {
+    "symbol": "RCN",
+    "name": "Ripio Credit Network",
+    "decimals": 18,
+    "address": "0xF970b8E36e23F7fC3FD752EeA86f8Be8D83375A6"
+  },
+  "REP": {
+    "symbol": "REP",
+    "name": "Augur",
+    "decimals": 18,
+    "address": "0xE94327D07Fc17907b4DB788E5aDf2ed424adDff6"
+  },
+  "RLC": {
+    "symbol": "RLC",
+    "name": "iExec",
+    "decimals": 9,
+    "address": "0x607F4C5BB672230e8672085532f7e901544a7375"
+  },
+  "SALT": {
+    "symbol": "SALT",
+    "name": "Salt",
+    "decimals": 8,
+    "address": "0x4156D3342D5c385a87D264F90653733592000581"
+  },
+  "SNT": {
+    "symbol": "SNT",
+    "name": "Status",
+    "decimals": 18,
+    "address": "0x744d70FDBE2Ba4CF95131626614a1763DF805B9E"
+  },
+  "STORJ": {
+    "symbol": "STORJ",
+    "name": "Storj",
+    "decimals": 8,
+    "address": "0xb64ef51c888972c908cfacf59b47c1afbc0ab8ac"
+  },
+  "SWT": {
+    "symbol": "SWT",
+    "name": "Swarm City",
+    "decimals": 18,
+    "address": "0xb9e7f8568e08d5659f5d29c4997173d84cdf2607"
+  },
+  "TRST": {
+    "symbol": "TRST",
+    "name": "WeTrust",
+    "decimals": 6,
+    "address": "0xcb94be6f13a1182e4a4b6140cb7bf2025d28e41b"
+  },
+  "WINGS": {
+    "symbol": "WINGS",
+    "name": "Wings",
+    "decimals": 18,
+    "address": "0x667088b212ce3d06a1b553a7221E1fD19000d9aF"
+  },
+  "ZRX": {
+    "symbol": "ZRX",
+    "name": "ZRX",
+    "decimals": 18,
+    "address": "0xe41d2489571d322189246dafa5ebde1f4699f498"
+  }
+}

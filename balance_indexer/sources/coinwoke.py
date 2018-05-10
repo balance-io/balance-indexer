@@ -27,5 +27,5 @@ async def index_erc20_tokens(session, redis_conn):
 
 async def filter_erc20(redis_conn, tokens):
   erc20_tokens = await keystore.get_erc20_tokens(redis_conn)
-  erc20_only = {k: v for k, v in tokens.items() if k in erc20_tokens}
+  erc20_only = [k for k in tokens.items() if k in erc20_tokens]
   return erc20_only
