@@ -72,7 +72,6 @@ def main():
 
   # Get web3 instance and filters
   w3 = initialize_web3()
-  some_block = w3.eth.getBlock('latest')
   txn_filter = w3.eth.filter('pending')
   #block_filter = w3.eth.filter('latest')
 
