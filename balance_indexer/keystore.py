@@ -34,6 +34,11 @@ async def get_erc20_tokens(redis_conn):
   return tokens
 
 
+async def add_gas_prices(redis_conn, gas_prices):
+  await redis_conn.hmset_dict('gasprices', gas_prices)
+  print('added gas prices')
+
+
 def token_key(token_address):
   return 'token:addr:{}'.format(token_address)
 

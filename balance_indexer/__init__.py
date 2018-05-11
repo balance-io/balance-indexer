@@ -6,7 +6,7 @@ from aiohttp import ClientSession
 import signal
 from web3 import Web3
 
-from balance_indexer.sources import shapeshift, coinwoke, web3_filters
+from balance_indexer.sources import shapeshift, coinwoke, web3_filters, gas_prices
 from balance_indexer import keystore
 
 ONE_MINUTE=60
@@ -55,6 +55,11 @@ def new_block_scheduler(period, loop, w3, block_filter, redis_conn):
   loop.call_later(period, partial(new_block_scheduler, period, loop, w3, block_filter, redis_conn))
 
 
+def eth_gas_prices_scheduler(period, loop, session, redis_conn):
+  asyncio.ensure_future(gas_prices.get_gas_prices(session, redis_conn))
+  loop.call_later(period, partial(eth_gas_prices_scheduler, period, loop, session, redis_conn))
+
+
 def main():
   parser = argparse.ArgumentParser()
   args = parser.parse_args()
@@ -79,6 +84,7 @@ def main():
   coinwoke_erc20_scheduler(FIVE_MINUTES, loop, session, redis_conn)
   shapeshift_currency_scheduler(FIVE_MINUTES, loop, session, redis_conn)
   shapeshift_market_info_scheduler(ONE_MINUTE, loop, session, redis_conn)
+  eth_gas_prices_scheduler(ONE_MINUTE, loop, session, redis_conn)
   #pending_txn_scheduler(ONE_MINUTE, loop, w3, txn_filter, redis_conn)
   #new_block_scheduler(ONE_MINUTE, loop, w3, block_filter, redis_conn)
 
