@@ -19,7 +19,8 @@ async def add_shapeshift_tokens(redis_conn, tokens):
 
 
 async def add_pair_deposit_min(redis_conn, all_pairs):
-  await redis_conn.set(pair_key(pair), min_deposit) for pair, min_deposit in all_pairs.items()
+  futures = [redis_conn.set(pair_key(pair), min_deposit) for pair, min_deposit in all_pairs.items()]
+  await asyncio.gather(*futures)
   print('added market info')
 
 
