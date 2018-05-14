@@ -4,7 +4,7 @@ import asyncio
 import uvloop
 from aiohttp import ClientSession
 import signal
-from web3 import Web3
+#from web3 import Web3
 
 from balance_indexer.sources import shapeshift, coinwoke, web3_filters, gas_prices
 from balance_indexer import keystore
@@ -71,8 +71,8 @@ def main():
   session = loop.run_until_complete(initialize_session(loop))
 
   # Get web3 instance and filters
-  w3 = initialize_web3()
-  txn_filter = w3.eth.filter('pending')
+  #w3 = initialize_web3()
+  #txn_filter = w3.eth.filter('pending')
   #block_filter = w3.eth.filter('latest')
 
   # Add signal handlers for termination

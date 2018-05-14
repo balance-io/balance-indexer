@@ -8,7 +8,6 @@ setup(
     'aioredis',
     'uvloop',
     'redis',
-    'web3',
   ],
   packages=find_packages(),
   entry_points={
