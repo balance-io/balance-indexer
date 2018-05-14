@@ -18,9 +18,8 @@ async def add_shapeshift_tokens(redis_conn, tokens):
   print('added available shapeshift tokens')
 
 
-async def add_pair_market_info(redis_conn, all_pairs):
-  futures = [redis_conn.hmset_dict(pair_key(*deposit_withdrawal_pair), fields) for deposit_withdrawal_pair, fields in all_pairs.items()]
-  await asyncio.gather(*futures)
+async def add_pair_deposit_min(redis_conn, all_pairs):
+  await redis_conn.set(pair_key(pair), min_deposit) for pair, min_deposit in all_pairs.items()
   print('added market info')
 
 
@@ -47,5 +46,5 @@ def asset_key(symbol):
   return '{}:{}'.format(ASSET_PREFIX, symbol)
 
 
-def pair_key(deposit, withdrawal):
-  return 'pair:withdrawal:{}:deposit:{}'.format(withdrawal, deposit)
+def pair_key(pair):
+  return 'pair:{}'.format(pair)

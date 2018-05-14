@@ -14,9 +14,7 @@ async def index_currencies(session, redis_conn):
   if resp.status != 200:
     raise SourceError('Shapeshift index currency symbols error')
   json_body = await resp.json()
-  print(json_body.items())
   currencies = [ k for k, v in json_body.items() if v['status'] == 'available']
-  print(currencies)
   erc20_only = await coinwoke.filter_erc20(redis_conn, currencies)
   await keystore.add_shapeshift_tokens(redis_conn, erc20_only)
 
@@ -27,5 +25,5 @@ async def index_market_info(session, redis_conn):
   if resp.status != 200:
     raise SourceError('Shapeshift index market info error')
   json_body = await resp.json()
-  all_pairs = {tuple(pair['pair'].split('_')): pair for pair in json_body}
-  await keystore.add_pair_market_info(redis_conn, all_pairs)
+  all_mins = { pair['pair'].lower(): pair['min'] for pair in json_body }
+  await keystore.add_pair_deposit_min(redis_conn, all_mins)
