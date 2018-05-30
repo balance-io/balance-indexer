@@ -19,9 +19,23 @@ async def index_currencies(session, redis_conn):
   await keystore.add_shapeshift_tokens(redis_conn, erc20_only)
 
 
-async def index_market_info(session, redis_conn):
+async def index_minimum_deposit(session, redis_conn):
   market_info_url = '{}/marketinfo'.format(BASE_URL)
   resp = await session.get(market_info_url)
+  if resp.status != 200:
+    raise SourceError('Shapeshift index market info error')
+  json_body = await resp.json()
+  all_mins = { pair['pair'].lower(): pair['min'] for pair in json_body }
+  await keystore.add_pair_deposit_min(redis_conn, all_mins)
+
+
+async def index_rates(session, redis_conn):
+  # get min deposit amount
+  # get all pairs
+  # send a request for rate with depositAmount
+  quote_url = '{}/sendamount'.format(BASE_URL)
+  futures = [session.post(url, {'amount': min_deposit, 'pair': pair}) for pair, min_deposit in all_pairs.items()]
+  results = await asyncio.gather(*futures)
   if resp.status != 200:
     raise SourceError('Shapeshift index market info error')
   json_body = await resp.json()
