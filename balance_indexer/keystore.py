@@ -17,7 +17,8 @@ async def create_connection(event_loop, host='localhost', port=6379, db=0):
 
 
 async def add_shapeshift_tokens(redis_conn, tokens):
-  await redis_conn.sadd('shapeshift:tokens', *tokens)
+  tokens_str = ','.join(tokens)
+  await redis_conn.set('shapeshift:tokenlist', tokens_str)
   log.info('added available shapeshift tokens')
 
 
