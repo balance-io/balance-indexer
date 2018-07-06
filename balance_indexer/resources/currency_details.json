@@ -11,6 +11,12 @@
     "decimals": 18,
     "address": "0x960b236A07cf122663c4303350609A66A7B288C0"
   },
+  "BNB": {
+    "symbol": "BNB",
+    "name": "Binance",
+    "decimals": 18,
+    "address": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52"
+  },
   "BNT": {
     "symbol": "BNT",
     "name": "Bancor",
