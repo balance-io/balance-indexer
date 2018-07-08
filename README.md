@@ -7,6 +7,8 @@ If you'd like to keep a separate Python environment for this project's installs,
 $ pip install virtualenv virtualenvwrapper
 ~~~~
 
+
+
 Add the following to your ~/.bashrc
 ~~~
 export WORKON_HOME=$HOME/.virtualenvs~
