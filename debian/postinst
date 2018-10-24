@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+USER="balance"
+HOME="/srv/indexer.balance.io"
+
+set +e
+adduser --system --home "${HOME}" --no-create-home --group "${USER}" 2> /devnull
+set -e
+
+if [ ! -d "${HOME}" ]; then
+  mkdir -m 0750 -p "${HOME}"
+  chown "${USER}:${USER}" "${HOME}"
+fi
+
